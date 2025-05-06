@@ -30,112 +30,101 @@
 
 </head>
 
-<body class="" style="background-color: rgb(245,245,245);">
+<body class="allbodybgcolor ms-4 pe-4">
 
     <!-- Overlay for small screens -->
     <div class="overlay" id="overlay"></div>
 
-    <div class="content " id="content">
+    <div class="content pe-0" id="content">
         <!-- Main content goes here -->
         @* data-id="@Model.SectionId" *@
         <form method="get" id="searchForm">
-            <div class="row d-flex mb-2 align-item-center justify-content-center ms-0 me-0 rounded">
-                <div class="hidden Categoryid" id="Categoryidsearch"></div>
-                <div class="col-2 ">
-                    <h1 class="webybtn">Orders </h1>
-                </div>
-                <div class="col d-flex align-items-center justify-content-end pe-0 mb-4">
-                    @* <div class="position-relative col-3">
-                        <input class="form-control form-control-lg " type="search" name="search" placeholder="Search "
-                            id="searchInput" style="height: 60px; padding-right: 40px;">
-                        <i class="fa fa-search position-absolute text-primary"
-                            style="top: 50%; right: 10px; transform: translateY(-50%);"></i>
+            <!-- Orders Header and Filters -->
+            <div class="row gx-3 gy-2 mb-3 align-items-center justify-content-between mx-0 rounded">
+                <div class="d-none Categoryid" id="Categoryidsearch"></div>
 
-                    </div> *@
-                     <div class=" position-relative col-3">
-                            <input class="form-control form-control-lg " type="search" name="search"
-                                placeholder="Search " id="searchInput" style="height: 60px; ">
-                            <i class="fa fa-search  position-absolute"
-                                style="top: 50%; right: 30px; transform: translateY(-50%);"></i>
-                        </div>
-                    <div class="position-relative col-3">
-                        @* <label for="orderStatus" class="form-label">Order Status:</label> *@
+                <!-- Title -->
+                <div class="col-12 col-md-3 col-lg-2">
+                    <h1 class="webybtn mb-0">Orders</h1>
+                </div>
+
+                <!-- Filters and Controls -->
+                <div class="col-12 col-md-9 col-lg-10 d-flex flex-wrap align-items-center justify-content-end gap-3">
+
+                    <!-- Search -->
+                    <div class="position-relative" style="max-width: 250px; flex: 1 1 auto;">
+                        <input class="form-control form-control-lg" type="search" name="search" placeholder="Search"
+                            id="searchInput" style="height: 60px;">
+                        <i class="fa fa-search position-absolute"
+                            style="top: 50%; right: 15px; transform: translateY(-50%);"></i>
+                    </div>
+
+                    <!-- Order Status -->
+                    <div style="max-width: 200px; flex: 1 1 auto;">
                         <select id="orderStatus" name="orderStatus" class="form-select" style="height: 60px;">
                             <option value="">All Status</option>
                             <option value="On Hold">On Hold</option>
                             <option value="Failed">Failed</option>
-                            <option value="Completed">Completed
-                            </option>
-                            <option value="Cancelled">Cancelled
-                            </option>
-                            <option value="Served">Served
-                            </option>
-                            <option value="In Progress">In Progress
-                            </option>
-                            <option value="Pending">Pending
-                            </option>
+                            <option value="Completed">Completed</option>
+                            <option value="Cancelled">Cancelled</option>
+                            <option value="Served">Served</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Pending">Pending</option>
                         </select>
                     </div>
-                    <div class="position-relative col-3">
+
+                    <!-- Date Filter -->
+                    <div style="max-width: 200px; flex: 1 1 auto;">
                         <select class="form-select" id="datefilter" name="datefilter" style="height: 60px;">
-                            <option value="All time"> All time</option>
+                            <option value="All time">All time</option>
                             <option value="Recent">Recent</option>
-                            <option value="Last 7 days"> Last 7 days
-                            </option>
-                            <option value="Last 30 days"> Last 30
-                                days</option>
-                            <option value="Current Month"> Current
-                                Month</option>
-                            <option value="Current Year"> Current
-                                Year</option>
-
+                            <option value="Last 7 days">Last 7 days</option>
+                            <option value="Last 30 days">Last 30 days</option>
+                            <option value="Current Month">Current Month</option>
+                            <option value="Current Year">Current Year</option>
                         </select>
                     </div>
 
-
-                    @* <button type="submit" class="btn fs-5 text-white text-center"
-                        style="background-color: rgba(0, 102, 167, 1); border-color: rgba(0, 102, 167, 1); height: 60px; width: 140px;">
-                        <i class="fa-solid fa-arrow-up-right-from-square me-2"></i>Export
-                    </button> *@
-                    <a class="btn fs-5 text-white text-center exportBtn"
-                        style="background-color: rgba(0, 102, 167, 1); border-color: rgba(0, 102, 167, 1); height: 60px; width: 140px;">
-                        <i class="fa-solid fa-arrow-up-right-from-square me-2 mt-3"></i>Export
-                    </a>
-
-
+                    <!-- Export Button -->
+                    <div>
+                        <a class="btn fs-5 text-white exportBtn align-items-center d-flex justify-content-center"
+                            style="background-color: rgba(0, 102, 167, 1); height: 60px; width: 140px;">
+                            <i class="fa-solid fa-arrow-up-right-from-square me-2"></i>Export
+                        </a>
+                    </div>
                 </div>
             </div>
-            <div class="row d-flex mb-2 align-items-center justify-content-end text-end ms-0 me-0 rounded">
 
+            <!-- Date Range and Buttons -->
+            <div class="row gx-3 gy-2 mb-3 align-items-center justify-content-end mx-0 rounded">
+                <div class="col-12 d-flex flex-wrap align-items-center justify-content-end gap-3">
 
-                <div class="col d-flex align-items-center justify-content-end gap-3 pe-0 mb-4 ">
-
-                    <div class="col-3">
-                        <div class="form-floating ">
-                            <input type="date" id="startDate" name="startDate" class="form-control">
-                            <label>Start Date</label>
-                        </div>
+                    <!-- Start Date -->
+                    <div class="form-floating" style="max-width: 200px;">
+                        <input type="date" id="startDate" name="startDate" class="form-control">
+                        <label for="startDate">Start Date</label>
                     </div>
 
-                    <div class="col-3 text-end">
-                        <div class="form-floating ">
-                            <input type="date" id="endDate" name="endDate" class="form-control">
-                            <label>End Date</label>
-                        </div>
+                    <!-- End Date -->
+                    <div class="form-floating" style="max-width: 200px;">
+                        <input type="date" id="endDate" name="endDate" class="form-control">
+                        <label for="endDate">End Date</label>
                     </div>
 
-
-
-                    <button type="button" class="btn  text-white text-center saveBtn"
-                        style="background-color: rgba(0, 102, 167, 1); border-color: rgba(0, 102, 167, 1); height: 40px; width: 80px;">
+                    <!-- Search Button -->
+                    <button type="button" class="btn text-white saveBtn"
+                        style="background-color: rgba(0, 102, 167, 1); height: 40px; width: 80px;">
                         Search
                     </button>
+
+                    <!-- Clear Button -->
                     <button type="button" class="btn cleareverything"
                         style="background-color: white; border-color: rgba(0, 102, 167, 1); color: rgba(0, 102, 167, 1); height: 40px; width: 80px;">
                         Clear
                     </button>
                 </div>
             </div>
+
         </form>
         <div id="orderTable"></div>
 
@@ -219,7 +208,7 @@
                     console.error('Error fetching items:', error);
                 }
             });
-           
+
 
             $('.exportBtn').click(function () {
                 var page = 1;

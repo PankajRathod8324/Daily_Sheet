@@ -3,7 +3,7 @@
 
 @{
     ViewData["Title"] = "User Page";
-    
+
 }
 
 <!DOCTYPE html>
@@ -27,17 +27,28 @@
             display: table;
             width: 100%;
             table-layout: fixed;
+
+        }
+
+        .table td,
+        .table th {
+            vertical-align: middle;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .table-responsive {
+            overflow-x: auto !important;
         }
     </style>
 
 </head>
 
-<body class="" style="background-color: rgb(245,245,245);">
+<body class="allbodybgcolor ms-4 pe-4">
 
     <!-- Overlay for small screens -->
     <div class="overlay" id="overlay"></div>
 
-    <div class="content " id="content">
+    <div class="content pe-0" id="content">
         <!-- Main content goes here -->
         <form method="get">
             <div class="row d-flex mb-2 align-item-center justify-content-center ps-0 me-0 rounded">
@@ -73,8 +84,8 @@
                 </div>
             </div>
         </form>
-        <div class="table-responsive p-3 bg-white shadow rounded ">
-            <table id="table" class="table align-center table-hover bg-white p-3" style="border-top-color: aqua;">
+        <div class="table-responsive p-3 bg-white shadow rounded">
+            <table id="table" class="table align-middle table-hover bg-white p-3" style="border-top-color: aqua;">
                 <thead class="bg-light ">
                     <tr>
                         <th style="border-top: 0; border-bottom-color: grey;">

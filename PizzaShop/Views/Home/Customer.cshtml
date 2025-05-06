@@ -30,59 +30,58 @@
 
 </head>
 
-<body class="" style="background-color: rgb(245,245,245);">
+<body class="allbodybgcolor ms-4 pe-4">
 
     <!-- Overlay for small screens -->
     <div class="overlay" id="overlay"></div>
 
-    <div class="content " id="content">
+    <div class="content pe-0" id="content">
         <!-- Main content goes here -->
         @* data-id="@Model.SectionId" *@
         <form method="get" id="searchForm">
-            <div class="row d-flex mb-2 align-item-center justify-content-center ms-0 me-0 rounded">
-                <div class="hidden Categoryid" id="Categoryidsearch"></div>
-                <div class="col-2 ">
-                    <h1 class="webybtn">Customers </h1>
+            <div class="row d-flex flex-wrap align-items-center justify-content-between gx-3 gy-2 mb-3 mx-0 rounded">
+
+                <div class="d-none Categoryid" id="Categoryidsearch"></div>
+
+                <!-- Title -->
+                <div class="col-12 col-md-4 col-lg-2">
+                    <h1 class="webybtn mb-0">Customers</h1>
                 </div>
-                <div class="col d-flex align-items-center justify-content-end pe-0 mb-4">
-                    <div class=" position-relative col-3">
-                        <input class="form-control form-control-lg " type="search" name="search" placeholder="Search "
-                            id="searchInput" style="height: 60px; ">
-                        <i class="fa fa-search  position-absolute"
+
+                <!-- Right side: Search, Filter, Export -->
+                <div class="col-12 col-md-8 col-lg-10 d-flex flex-wrap align-items-center justify-content-end gap-2">
+
+                    <!-- Search Box -->
+                    <div class="position-relative flex-grow-1 flex-md-shrink-0" style="max-width: 300px;">
+                        <input class="form-control form-control-lg" type="search" name="search" placeholder="Search"
+                            id="searchInput" style="height: 60px;">
+                        <i class="fa fa-search position-absolute"
                             style="top: 50%; right: 30px; transform: translateY(-50%);"></i>
                     </div>
 
-                    <div class="position-relative col-3">
+                    <!-- Date Filter -->
+                    <div class="flex-grow-1 flex-md-shrink-0" style="max-width: 220px;">
                         <select class="form-select" id="datefilter" name="datefilter" style="height: 60px;">
-                            <option value="All time"> All time</option>
+                            <option value="All time">All time</option>
                             <option value="Recent">Recent</option>
-                            <option value="Last 7 days"> Last 7 days
-                            </option>
-                            <option value="Last 30 days"> Last 30
-                                days</option>
-                            <option value="Current Month"> Current
-                                Month</option>
-                            <option value="Current Year"> Current
-                                Year</option>
-                            <option value="Custome Date"> Custome
-                                Date</option>
-
+                            <option value="Last 7 days">Last 7 days</option>
+                            <option value="Last 30 days">Last 30 days</option>
+                            <option value="Current Month">Current Month</option>
+                            <option value="Current Year">Current Year</option>
+                            <option value="Custome Date">Custom Date</option>
                         </select>
                     </div>
 
-
-                    @* <button type="submit" class="btn fs-5 text-white text-center"
-                        style="background-color: rgba(0, 102, 167, 1); border-color: rgba(0, 102, 167, 1); height: 60px; width: 140px;">
-                        <i class="fa-solid fa-arrow-up-right-from-square me-2"></i>Export
-                    </button> *@
-                    <a class="btn fs-5 text-white text-center exportBtn"
-                        style="background-color: rgba(0, 102, 167, 1); border-color: rgba(0, 102, 167, 1); height: 60px; width: 140px;">
-                        <i class="fa-solid fa-arrow-up-right-from-square me-2 mt-3"></i>Export
-                    </a>
-
-
+                    <!-- Export Button -->
+                    <div>
+                        <a class="btn fs-5 text-white exportBtn align-items-center d-flex justify-content-center"
+                            style="background-color: rgba(0, 102, 167, 1); border-color: rgba(0, 102, 167, 1); height: 60px; width: 140px;">
+                            <i class="fa-solid fa-arrow-up-right-from-square me-2"></i>Export
+                        </a>
+                    </div>
                 </div>
             </div>
+
 
         </form>
         <div id="orderTable"></div>

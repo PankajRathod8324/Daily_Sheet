@@ -10,10 +10,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - PizzaShop</title>
-    @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <!-- Bootstrap 5 JS (bundle with Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
     @* <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" /> *@
-    @* <script src='https://code.jquery.com/jquery-3.7.0.js'></script> *@
+    <script src='https://code.jquery.com/jquery-3.7.0.js'></script>
     <style>
         .active {
             background-color: #f0f0f0;
@@ -30,7 +35,7 @@
 </head>
 
 <body>
-    <div class="col-lg-6 col-md-6 col-sm-9 categoryTobevisible">
+    <div class="col-lg-6 col-md-6 col-sm-9 ps-0 pe-0 w-100 categoryTobevisible">
 
         <div class="accordion" id="accordionPanelsStayOpenExample">
             <div class="accordion-item">
@@ -88,6 +93,21 @@
 
 
         </div>
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" aria-expanded="true" aria-controls="collapseOne">
+                        Accordion Item #1
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        Content of the accordion item.
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="col-12 d-flex justify-content-start ps-0 pe-0 w-100">
 
@@ -108,7 +128,7 @@
                 </div>
             </div>
 
-            <div class="overflow-x-hidden  mt-3" style="max-width: 1000px; max-height: 400px;">
+            <div class="overflow-x-hidden   mt-3" style="max-width: 1000px; max-height: 400px;scrollbar-width: none;">
                 @foreach (var category in Model.menuCategories)
                 {
                     var modalId = "deleteModal" + category.CategoryId;
@@ -499,6 +519,20 @@
 
 
     <script>
+
+        const accordionButton = document.querySelector('.accordion-button');
+        const collapseElement = document.getElementById('collapseOne');
+
+        accordionButton.addEventListener('click', function () {
+            if (collapseElement.classList.contains('show')) {
+                // If the accordion is already open, collapse it
+                collapseElement.classList.remove('show');
+            } else {
+                // If the accordion is closed, open it
+                collapseElement.classList.add('show');
+            }
+        });
+
 
 
         document.addEventListener("DOMContentLoaded", function () {

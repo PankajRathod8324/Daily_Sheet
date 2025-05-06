@@ -88,14 +88,14 @@
 
         </div>
     </div>
-    <div class="col-12 d-flex justify-content-start">
+    <div class="col-12 d-flex justify-content-start w-100 ps-0 pe-0">
 
-        <div class="col-3 categoryTobehidden bg-light p-3">
+        <div class="col-2 categoryTobehidden p-3">
             <div class="row">
-                <div class="col ">
-                    <h3 class=" fs-3">Modifier Group </h3>
+                <div class="col mb-3 ms-3">
+                    <h3 class=" fs-4 webybtn">Modifier Group </h3>
                 </div>
-                <div class="col text-end">
+                <div class="col text-end webybtn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                         class="bi bi-plus-square mt-2" data-bs-toggle="modal" data-bs-target="#addModifierGroupModal"
                         viewBox="0 0 16 16">
@@ -107,7 +107,7 @@
                 </div>
             </div>
 
-            <div class="overflow-x-hidden  mt-3" style="max-width: 1000px; max-height: 400px;">
+            <div class="overflow-x-hidden  mt-3" style="max-width: 1000px; max-height: 400px;scrollbar-width: none;">
                 @foreach (var modifierGroups in Model.menuModifierGroups)
                 {
                     <div class="row hoverDiv"  data-modid="@modifierGroups.ModifierGroupId">
@@ -134,34 +134,33 @@
         </div>
 
 
-        <div class="col-xxl-9 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 bg-white p-3">
+        <div class="col-xxl-10 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 bg-white p-3">
             @* Modifier Section *@
             <form method="get" id="searchForm" data-id="@Model.ModifierGroupId">
-                <div class="row d-flex mb-2 align-item-center justify-content-center ms-0 me-0 rounded">
+                <div class=" d-flex mb-2 ms-0 me-0 rounded">
                     <div class="hidden Categoryid" id="Categoryidsearch"></div>
-                    <div class="col ">
-                        <h1 class="">Modifier </h1>
+                    <div class=" ">
+                        <h1 class="webybtn fs-5 fw-bold">Modifier </h1>
                     </div>
-                    <div class="col d-flex align-items-center gap-3 justify-content-end pe-0">
-                        <input type="text" name="search" id="searchInput" class="form-control"
-                            placeholder="Search Item">
-
-
-
-                        <div class="col-auto text-end">
+                </div>
+                <div class="d-flex justify-content-end mb-2">
+                    <div class="d-flex  gap-3 justify-content-end pe-0">
+                        <div class=" position-relative ">
+                            <input class="form-control fs-6 form-control-lg " type="search" name="search"
+                                placeholder="Search " id="searchInput" style="height: 50px; ">
+                            <i class="fa fa-search  position-absolute"
+                                style="top: 50%; right: 30px; transform: translateY(-50%);"></i>
+                        </div>
+                        <div class="">
                             <a data-bs-toggle="modal" data-bs-target="#deleteModalModifier1">
-                                <button type="submit" class="btn btn-outline-primary showdeletemodal"> <i
-                                        class="fa-regular fa-trash-can text-center"></i></button>
+                                <button type="submit" class="btn webyborder px-3 showdeletemodal"> <i
+                                        class="bi bi-trash fs-4 webybtn fw-light"></i></button>
                             </a>
                         </div>
-
-                        <div class="col-auto text-end">
-                            <a data-bs-toggle="modal" data-bs-target="#newmodifierModal">
-                                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">
-                                    <i class="fa-solid fa-plus"></i>New Modifier
+                                <button class="btn finalsavebtn " type="button" data-bs-toggle="modal" data-bs-target="#newmodifierModal">
+                                    <i class="fa-solid fa-plus"></i> New Modifier
                                 </button>
-                            </a>
-                        </div>
+                          
                     </div>
                 </div>
             </form>

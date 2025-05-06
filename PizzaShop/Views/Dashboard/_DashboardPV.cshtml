@@ -10,7 +10,7 @@
 
 
 
-<div class=" mt-4">
+<div class=" mt-4 w-100">
     <!-- First Row: Summary Cards -->
     <!-- Summary Cards -->
     <div class="row g-4 mt-3 w-100">
@@ -154,48 +154,48 @@
         </div>
 
         <!-- Waiting List Count -->
-        <div class="col-md-3">
-            <div class="card shadow  p-3 text-start   border border-white ">
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="card shadow p-3 text-start border border-white">
                 <div class="d-flex text-center justify-content-end">
-                    <div class="w-100 d-flex col-md-2 rounded-circle p-2"
-                        style="border-radius: 50%; border: 2px solid #fbc96e !important;">
-                        <div class=" rounded-circle p-2 w-100" style="background-color: #fbc96e;">
-                            <img src="~/assest/icons/waiting-list.svg" class="w-100" alt="">
+                    <div class="d-flex rounded-circle p-2"
+                        style="width: 60px; height: 60px; min-width: 60px; border-radius: 50%; border: 2px solid #fbc96e !important;">
+                        <div class="rounded-circle p-2 w-100 h-100" style="background-color: #fbc96e;">
+                            <img src="~/assest/icons/waiting-list.svg" class="w-100 h-100 img-fluid" alt=""
+                                style="object-fit: contain;">
                         </div>
                     </div>
-
                 </div>
                 <div>
                     <span class="fs-3 fw-semibold ps-1">@Model.WaitingListCount</span>
                 </div>
-                <div class=" mb-3">
+                <div class="mb-3">
                     <span class="text-secondary fs-6 ps-1">Waiting List Count</span>
                 </div>
-
             </div>
         </div>
 
+
         <!-- New Customer Count -->
-        <div class="col-md-3">
-            <div class="card shadow  p-3 text-start   border border-white ">
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="card shadow p-3 text-start border border-white">
                 <div class="d-flex text-center justify-content-end">
-                    <div class="w-100 d-flex col-md-2 rounded-circle p-2"
-                        style="border-radius: 50%; border: 2px solid #fca765 !important;">
-                        <div class=" rounded-circle p-2 w-100" style="background-color: #fca765;">
-                            <img src="~/assest/icons/customer.svg" class="w-100" alt="">
+                    <div class="d-flex rounded-circle p-2"
+                        style="width: 60px; height: 60px; min-width: 60px; border-radius: 50%; border: 2px solid #fca765 !important;">
+                        <div class="rounded-circle p-2 w-100 h-100" style="background-color: #fca765;">
+                            <img src="~/assest/icons/customer.svg" class="w-100 h-100 img-fluid" alt=""
+                                style="object-fit: contain;">
                         </div>
                     </div>
-
                 </div>
                 <div>
                     <span class="fs-3 fw-semibold ps-1">@Model.NewCustomers</span>
                 </div>
-                <div class=" mb-3">
+                <div class="mb-3">
                     <span class="text-secondary fs-6 ps-1">New Customer Count</span>
                 </div>
-
             </div>
         </div>
+
     </div>
 
     <script>
@@ -203,20 +203,19 @@
             @* if (window.revenueChart) {
                 window.revenueChart.destroy();
             } *@
-            loadChart();
+                loadChart();
             var startDate = "";
             var endDate = "";
             var status = "";
-           
+
             $("#datefilter").click(function (e) {
                 e.stopPropagation();
                 var datefilter = $(this).val();
-                if(status == "Custome Date")
-                {
+                if (status == "Custome Date") {
                     $("#CustomeDate").modal("hide");
                     status = "";
                 }
-                else if(datefilter == "Custome Date" && status != "Custome Date") {
+                else if (datefilter == "Custome Date" && status != "Custome Date") {
                     $("#CustomeDate").modal("show");
                     $("#startDate").val("");
                     $("#endDate").val("");
@@ -237,8 +236,8 @@
             });
 
             $(".datesubmit").click(function () {
-                 startDate = $("#startDate").val();
-                 endDate = $("#endDate").val();
+                startDate = $("#startDate").val();
+                endDate = $("#endDate").val();
                 if (startDate == "" || endDate == "") {
                     alert("Please select both start and end dates.");
                     return;

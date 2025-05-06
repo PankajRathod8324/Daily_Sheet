@@ -111,8 +111,6 @@
             background-color: #17a2b8 !important;
             color: white !important;
         }
-
-        
     </style>
 </head>
 
@@ -140,35 +138,65 @@
                     <div class="d-flex  justify-content-between flex-row align-items-center">
                         <!-- Dropdown for small screens -->
                         <div class="d-md-none m-2 w-100">
-                            <select class="form-select text-black fa-select" onchange="handleMenuSelect(this)">
-                                <option selected disabled>  Tables</option>
-                                <!-- fa-utensils -->
-                                @if (isChef || isAccountManager)
-                                {
-                                    <i class="fa-solid fa-clipboard-list me-2"></i>
-                                    <option value="@Url.Action("KOT", "AccountManagerOrderApp")">&#xf328; KOT</option>
-                                    <!-- fa-clipboard-list -->
-                                }
-                                @if (isAccountManager)
-                                {
-                                    <option value="@Url.Action("WaitingList", "AccountManagerOrderApp")">&#xf017; Waiting
-                                        List
-                                    </option> <!-- fa-clock -->
-                                    <option value="@Url.Action("Table", "AccountManagerOrderApp")">&#xf0c8; Tables</option>
-                                    <!-- fa-square -->
-                                    <option value="@Url.Action("MenuOrderApp", "AccountManagerOrderApp")">&#xf561; Menu
-                                    </option>
-                                    <!-- fa-bell-concierge -->
-                                }
-                            </select>
+                            <div class="d-flex flex-wrap">
+                                <!-- Main Pill with Dropdown -->
+                                <div class="dropdown">
+                                    <span id="mainPill"
+                                        class="badge rounded-pill border border-white me-3 d-flex align-items-center justify-content-center gap-2 px-3 py-2 text-white"
+                                        style="background-color: transparent;" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <i class="fa-solid fa-square"></i>
+                                        <span id="pillText">Tables</span> <!-- Default main pill text -->
+                                        <i class="fa-solid fa-chevron-down ms-2"></i> <!-- Arrow icon -->
+                                    </span>
+
+                                    <!-- Dropdown Menu -->
+                                    <ul class="dropdown-menu p-0">
+                                        <!-- KOT Option -->
+                                        @if (isChef || isAccountManager)
+                                        {
+                                            <li>
+                                                <a class="dropdown-item d-flex align-items-center gap-2" href="#"
+                                                    onclick="changePillAndRedirect('KOT', '@Url.Action("KOT", "AccountManagerOrderApp")')">
+                                                    <i class="fa-solid fa-clipboard-list"></i>
+                                                    <span>KOT</span>
+                                                </a>
+                                            </li>
+                                        }
+
+                                        <!-- Waiting List Option -->
+                                        @if (isAccountManager)
+                                        {
+                                            <li>
+                                                <a class="dropdown-item d-flex align-items-center gap-2" href="#"
+                                                    onclick="changePillAndRedirect('Waiting List', '@Url.Action("WaitingList", "AccountManagerOrderApp")')">
+                                                    <i class="fa-solid fa-clock"></i>
+                                                    <span>Waiting List</span>
+                                                </a>
+                                            </li>
+                                        }
+
+                                        <!-- Menu Option -->
+                                        @if (isAccountManager)
+                                        {
+                                            <li>
+                                                <a class="dropdown-item d-flex align-items-center gap-2" href="#"
+                                                    onclick="changePillAndRedirect('Menu', '@Url.Action("MenuOrderApp", "AccountManagerOrderApp")')">
+                                                    <i class="fa-solid fa-bell-concierge"></i>
+                                                    <span>Menu</span>
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                        <div class="d-none d-md-flex ">
+                        <div class="d-none d-md-flex">
                             @if (isChef || isAccountManager)
                             {
                                 <a class="ms-2" asp-controller="AccountManagerOrderApp" asp-action="KOT">
                                     <span
-                                        class="badge rounded-pill border border-white me-3 d-flex align-items-center justify-content-center gap-2 px-3 py-2 text-white"
-                                        style="background-color: transparent;">
+                                        class="badge rounded-pill border border-white me-3 d-flex align-items-center justify-content-center gap-2 px-3 py-2 text-white @(ViewContext.RouteData.Values["action"]?.ToString() == "KOT" ? "bg-primary" : "bg-transparent")">
                                         <i class="fa-solid fa-clipboard-list"></i>
                                         <span>KOT</span>
                                     </span>
@@ -179,8 +207,7 @@
                             {
                                 <a class="ms-2" asp-controller="AccountManagerOrderApp" asp-action="WaitingList">
                                     <span
-                                        class="badge rounded-pill border border-white me-3 d-flex align-items-center justify-content-center gap-2 px-3 py-2 text-white"
-                                        style="background-color: transparent;">
+                                        class="badge rounded-pill border border-white me-3 d-flex align-items-center justify-content-center gap-2 px-3 py-2 text-white @(ViewContext.RouteData.Values["action"]?.ToString() == "WaitingList" ? "bg-primary" : "bg-transparent")">
                                         <i class="fa-solid fa-clock"></i>
                                         <span>Waiting List</span>
                                     </span>
@@ -188,8 +215,7 @@
 
                                 <a class="ms-2" asp-controller="AccountManagerOrderApp" asp-action="Table">
                                     <span
-                                        class="badge rounded-pill border border-white me-3 d-flex align-items-center justify-content-center gap-2 px-3 py-2 text-white"
-                                        style="background-color: transparent;">
+                                        class="badge rounded-pill border border-white me-3 d-flex align-items-center justify-content-center gap-2 px-3 py-2 text-white @(ViewContext.RouteData.Values["action"]?.ToString() == "Table" ? "bg-primary" : "bg-transparent")">
                                         <i class="fa-solid fa-square"></i>
                                         <span>Tables</span>
                                     </span>
@@ -197,14 +223,14 @@
 
                                 <a class="ms-2" asp-controller="AccountManagerOrderApp" asp-action="MenuOrderApp">
                                     <span
-                                        class="badge rounded-pill border border-white me-3 d-flex align-items-center justify-content-center gap-2 px-3 py-2 text-white"
-                                        style="background-color: transparent;">
+                                        class="badge rounded-pill border border-white me-3 d-flex align-items-center justify-content-center gap-2 px-3 py-2 text-white @(ViewContext.RouteData.Values["action"]?.ToString() == "MenuOrderApp" ? "bg-primary" : "bg-transparent")">
                                         <i class="fa-solid fa-bell-concierge"></i>
                                         <span>Menu</span>
                                     </span>
                                 </a>
                             }
                         </div>
+
                         <div class="dropdown">
                             <a class="nav-link d-flex align-items-center dropdown-toggle" href="#" id="userDropdown"
                                 role="button">
@@ -315,15 +341,42 @@
                 dropdownMenu.toggle(); // Ensures dropdown toggles properly
             });
         });
-        function handleMenuSelect(select)
-        {
+        function handleMenuSelect(select) {
             const val = select.value;
-            if(val)
-            {
+            if (val) {
                 window.location.href = val;
             }
         }
+        window.onload = function () {
+            setDefaultPillFromUrl();
+        }
 
+        // Function to set the default pill text based on the current page URL
+        function setDefaultPillFromUrl() {
+            const currentUrl = window.location.pathname;
+
+            // Check the current URL and update the pill based on the page
+            if (currentUrl.includes("/AccountManagerOrderApp/WaitingList")) {
+                changePill("Waiting List");
+            } else if (currentUrl.includes("/AccountManagerOrderApp/KOT")) {
+                changePill("KOT");
+            } else if (currentUrl.includes("/AccountManagerOrderApp/MenuOrderApp")) {
+                changePill("Menu");
+            } else {
+                changePill("Tables");  // Default if no match
+            }
+        }
+
+        // Function to change the pill text
+        function changePill(option) {
+            document.getElementById('pillText').textContent = option;
+        }
+
+        // Function to change the pill and redirect to the selected option's URL
+        function changePillAndRedirect(option, url) {
+            changePill(option);  // Change the pill text
+            window.location.href = url;  // Redirect to the selected page
+        }
 
 
         @* $(".menupermit").click(function () {

@@ -29,70 +29,69 @@
 </head>
 
 <body class="bg-white">
-    <!-- Overlay for small screens -->
-
-
-
-    <table class="table  align-middle text-center">
-        <thead class="bg-light" style="position: sticky; top: 0; z-index: 10;">
-            <tr>
-                <th class="text-start">
-                    <input type="checkbox" class="me-2" id="selectAll" style="width: 16px; height: 16px;" />
-                    Name
-                </th>
-                <th>Unit</th>
-                <th>Rate</th>
-                <th>Quantity</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model.Any(menumodifier => menumodifier.ModifierId != null))
-            {
-                @foreach (var menumodifier in Model)
+    
+    <div class="table-responsive " style="max-height: 400px; overflow-y: auto;">
+        <table class="table  align-middle text-center">
+            <thead  style="position: sticky; top: 0; z-index: 10;">
+                <tr>
+                   <th class="text-start text-secondary border-top-0 fs-5">
+                        <input type="checkbox" class="me-2" id="selectAll" />
+                        Name
+                    </th>
+                    <th class="text-secondary border-top-0 fs-5">Unit</th>
+                    <th class="text-secondary border-top-0 fs-5">Rate</th>
+                    <th class="text-secondary border-top-0 fs-5">Quantity</th>
+                    <th class="text-secondary border-top-0 fs-5">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Any(menumodifier => menumodifier.ModifierId != null))
                 {
-                    @if (menumodifier.ModifierId != null)
+                    @foreach (var menumodifier in Model)
                     {
-                        <tr class="tblclass" data-id="@menumodifier.ModifierId">
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <input type="checkbox" name="chkItem" class="checkclass" />
+                        @if (menumodifier.ModifierId != null)
+                        {
+                            <tr class="tblclass" data-id="@menumodifier.ModifierId">
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <input type="checkbox" name="chkItem" class="checkclass" />
 
-                                    <div>
-                                        <p class="text-secondary mb-1 ms-2">@menumodifier.ModifierName</p>
+                                        <div>
+                                            <p class="text-secondary mb-1 ms-2">@menumodifier.ModifierName</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
+                                </td>
 
-                            <td>
-                                <p class="fw-normal mb-1">@menumodifier.UnitName</p>
-                            </td>
-                            <td>
-                                <p class="fw-normal mb-1">@menumodifier.ModifierRate</p>
-                            </td>
-                            <td>
-                                <p class="fw-normal mb-1">@menumodifier.Quantity</p>
-                            </td>
+                                <td>
+                                    <p class="fw-normal mb-1">@menumodifier.UnitName</p>
+                                </td>
+                                <td>
+                                    <p class="fw-normal mb-1">@menumodifier.ModifierRate</p>
+                                </td>
+                                <td>
+                                    <p class="fw-normal mb-1">@menumodifier.Quantity</p>
+                                </td>
 
-                            <td>
-                                <i class="fa-solid fa-marker" data-bs-toggle="modal" data-bs-target="#editmodifierModal"
-                                    onclick="editModifier(@menumodifier.ModifierId)"></i>
-                                <i class="fa-regular fa-trash-can ms-4 deletebtnid" data-bs-toggle="modal"
-                                    data-bs-target="#deleteModal3" data-id="@menumodifier.ModifierId"></i>
-                            </td>
-                        </tr>
+                                <td>
+                                    <i class="bi bi-pen" data-bs-toggle="modal" data-bs-target="#editmodifierModal"
+                                        onclick="editModifier(@menumodifier.ModifierId)"></i>
+                                    <i class="bi bi-trash  ms-4 deletebtnid" data-bs-toggle="modal"
+                                        data-bs-target="#deleteModal3" data-id="@menumodifier.ModifierId"></i>
+                                </td>
+                            </tr>
+                        }
                     }
                 }
-            }
-            else
-            {
-                <tr>
-                    <td colspan="6" class="text-center text-muted">
-                        <p>No items found!</p>
-                    </td>
-                </tr>
-            }
-    </table>
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">
+                            <p>No items found!</p>
+                        </td>
+                    </tr>
+                }
+        </table>
+    </div>
     <div class="d-flex justify-content-end align-items-center my-3 gap-2">
         <form id="paginationForm" method="get" class="d-flex align-items-center me-3">
             <span class="me-2">Items per page:</span>
