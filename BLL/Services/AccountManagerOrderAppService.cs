@@ -152,6 +152,11 @@ public class AccountManagerOrderAppService : IAccountManagerOrderAppService
 
         // Check if the customer already exists
         var existingCustomer = _accountmanagerorderapprepository.IsCustomer(email);
+        var orderId = _customerRepository.GetOrderIdByCustomerIdActiveOrder(existingCustomer.CustomerId);
+        if (orderId != 0)
+        {
+            return false;
+        }
 
         if (existingCustomer != null)
         {
@@ -360,6 +365,12 @@ public class AccountManagerOrderAppService : IAccountManagerOrderAppService
         var IsCustomer = _accountmanagerorderapprepository.IsCustomer(waitingList.Email);
         if (IsCustomer != null)
         {
+            //check if the customer has alreay order which is running
+            var orderId = _customerRepository.GetOrderIdByCustomerIdActiveOrder(IsCustomer.CustomerId);
+            if (orderId != 0)
+            {
+                return false;
+            }
             IsCustomer.Noofperson = waitingList.NoOfPerson;
             _customerRepository.UpdateCustomer(IsCustomer);
 

@@ -2,8 +2,8 @@ using System.Diagnostics;
 using System.Security.Claims;
 using System.Text.Json.Nodes;
 using BLL.Interfaces;
-using  DAL.Interfaces;
-using  DAL.Repository;
+using DAL.Interfaces;
+using DAL.Repository;
 using Entities.Models;
 using Entities.ViewModel;
 using Microsoft.AspNetCore.Authorization;
@@ -104,6 +104,16 @@ public class TableAndSectionController : Controller
     public IActionResult DeleteSection(int sectionId)
     {
         Console.WriteLine("tHIS IS iD: " + sectionId);
+        var table = _tableandsectionService.GetTablesBySectionId(sectionId);
+        foreach (var item in table)
+        {
+            if (item.StatusId != 1)
+            {
+                TempData["Message"] = "Section cannot be deleted because it has tables are Occupied.";
+                TempData["MessageType"] = "warning";
+                 return RedirectToAction("TableAndSection", "Home");
+            }
+        }
         _tableandsectionService.DeleteSection(sectionId);
         TempData["Message"] = "Section deleted successfully!";
         TempData["MessageType"] = "success";

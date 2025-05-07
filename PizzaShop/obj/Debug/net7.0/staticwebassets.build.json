@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "9VdaiEtI8clz5cZoBbSwF+So7HC/gPZvH3+ROdp1uNc=",
+  "Hash": "ZA0fct+fioYfJw0dH/t2x56Tul/8lVYo6HCCKcEJo0Q=",
   "Source": "PizzaShop",
   "BasePath": "_content/PizzaShop",
   "Mode": "Default",
@@ -724,8 +724,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "59i22hmh1j",
-      "Integrity": "F3FbVjkNDzjWUdv3bai4w0lr4e9+STF+oAUqVUxC56I=",
+      "Fingerprint": "69j7jg3k2m",
+      "Integrity": "xj8FoWEc6h/G89562VLqiSG0kyGiDJCd6n/6y2v975I=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\style.css"
@@ -5753,7 +5753,7 @@
       ]
     },
     {
-      "Route": "css/style.59i22hmh1j.css",
+      "Route": "css/style.69j7jg3k2m.css",
       "AssetFile": "D:\\PizzaShop_N_Tier-main\\PizzaShop_N_Tier-main\\PizzaShop\\wwwroot\\css\\style.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -5763,7 +5763,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "7111"
+          "Value": "7344"
         },
         {
           "Name": "Content-Type",
@@ -5771,11 +5771,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"F3FbVjkNDzjWUdv3bai4w0lr4e9+STF+oAUqVUxC56I=\""
+          "Value": "\"xj8FoWEc6h/G89562VLqiSG0kyGiDJCd6n/6y2v975I=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 07 May 2025 17:56:18 GMT"
+          "Value": "Wed, 07 May 2025 19:44:44 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5785,7 +5785,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "59i22hmh1j"
+          "Value": "69j7jg3k2m"
         },
         {
           "Name": "label",
@@ -5793,7 +5793,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-F3FbVjkNDzjWUdv3bai4w0lr4e9+STF+oAUqVUxC56I="
+          "Value": "sha256-xj8FoWEc6h/G89562VLqiSG0kyGiDJCd6n/6y2v975I="
         }
       ]
     },
@@ -5808,7 +5808,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "7111"
+          "Value": "7344"
         },
         {
           "Name": "Content-Type",
@@ -5816,11 +5816,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"F3FbVjkNDzjWUdv3bai4w0lr4e9+STF+oAUqVUxC56I=\""
+          "Value": "\"xj8FoWEc6h/G89562VLqiSG0kyGiDJCd6n/6y2v975I=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 07 May 2025 17:56:18 GMT"
+          "Value": "Wed, 07 May 2025 19:44:44 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5830,7 +5830,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-F3FbVjkNDzjWUdv3bai4w0lr4e9+STF+oAUqVUxC56I="
+          "Value": "sha256-xj8FoWEc6h/G89562VLqiSG0kyGiDJCd6n/6y2v975I="
         }
       ]
     },

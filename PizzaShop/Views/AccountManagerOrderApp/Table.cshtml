@@ -524,9 +524,16 @@
                         contentType: "application/json",
                         data: submissionData,
                         success: function (response) {
-                            toastr.success('Customer Added Successfully!', "Success");
-
-                            window.location.href = '/AccountManagerOrderApp/MenuOrderApp?Id=' + response.customerId;
+                            if (response.status == "success") {
+                                console.log("Customer added successfully");
+                                toastr.success('Customer Added Successfully!', "Success");
+                                window.location.href = '/AccountManagerOrderApp/MenuOrderApp?customerId=' + response.customerId;
+                            }
+                            else {
+                                console.log("Customer has already Running Order");
+                                toastr.warning("Customer has already Running Order", "Warning");
+                            }
+                            
                         },
                         error: function (xhr, status, error) {
                             console.error('Error:', xhr.responseText); // Log detailed error

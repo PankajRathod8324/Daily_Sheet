@@ -181,9 +181,8 @@
                             <i class="fa fa-search  position-absolute"
                                 style="top: 50%; right: 30px; transform: translateY(-50%);"></i>
                         </div>
-                        <button type="button" class="btn webyborder  px-3">
-                            <i class="bi bi-trash fs-4 webybtn fw-light" data-bs-toggle="modal"
-                                data-bs-target="#deleteModal1"></i></button>
+                        <button type="button" class="btn webyborder deletemultyitembtn  px-3">
+                            <i class="bi bi-trash fs-4 webybtn fw-light"></i></button>
 
                         <button class="btn finalsavebtn newitemmodalbtn" type="submit">
                             <i class="fa-solid fa-plus"></i> New Item
@@ -300,7 +299,7 @@
             </div>
         </div>
     </div>
-    <div class="modal " id="deleteModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal " id="deleteItemModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -313,8 +312,9 @@
                     <div class="fs-4">Are you sure you want to delete this Items?</div>
                 </div>
                 <div class="modal-footer d-flex align-items-center justify-content-center">
-                    <button type="submit" class="btn btn-primary deletebtn">Yes</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <button type="submit" class="btn  webybg  fs-6 fw-bold text-white px-4 deleteitembtn ">YES</button>
+                    <button type="button" class="btn  webyborder webybtn fw-bold px-4"
+                        data-bs-dismiss="modal">NO</button>
                 </div>
             </div>
         </div>
@@ -495,7 +495,7 @@
 
                         </div>
                         <div class="modal-footer d-flex jusify-content-end border-0">
-                            <button type="submit" class="btn  webybg  fs-6 fw-bold text-white px-4">Save</button>
+                            <button type="submit" class="btn  webybg  fs-6 fw-bold text-white px-4 saveitembtn" disabled>Save</button>
                             <button type="button" class="btn  webyborder webybtn fw-bold px-4"
                                 data-bs-dismiss="modal">Cancel</button>
                         </div>
@@ -546,6 +546,8 @@
             }); *@
             let deletecategoryid = 0;
 
+        var selectedCategoryId = '@Model.menuCategories.FirstOrDefault().CategoryId';
+
         $(document).ready(function () {
 
             const categoryItems = document.querySelectorAll(".hoverCategoryDiv");
@@ -566,7 +568,6 @@
                     loadModifiers(page);
                 });
 
-            var selectedCategoryId = '@Model.menuCategories.FirstOrDefault().CategoryId';
             $.ajax({
                 url: '/Menu/MenuItem',
                 type: 'GET',
@@ -609,35 +610,9 @@
             });
 
             // Function to Load Items Based on Filters
-            function loadMenuItems(page = 1) {
-                var search = $("#searchInput").val();
-                var sortOrder = $("#sortOrder").val();
-                var pageSize = $("#pageSizeDropdown").val();
-
-                console.log("Category:", selectedCategoryId, "Page:", page, "PageSize:", pageSize);
-
-                $.ajax({
-                    url: '/Menu/MenuItem',  // Ensure this route matches your controller
-                    type: 'GET',
-                    data: {
-                        categoryId: selectedCategoryId,
-                        search: search,
-                        sortOrder: sortOrder,
-                        page: page,
-                        pageSize: pageSize
-                    },
-                    success: function (data) {
-                        $("#menuItemsContainer").html(data);  // Update the menu items container
-                    },
-                    error: function (xhr, status, error) {
-                        console.error('Error fetching items:', error);
-                    }
-                });
-            }
 
 
-            $(".deletebtn").click(function () {
-
+            $(".deleteitembtn").click(function () {
                 console.log("Save button is Pressed");
                 DeleteItems();
             });
@@ -734,6 +709,31 @@
                 console.log(selectedModifierGroups);
             });
 
+            $('.deletemultyitembtn').click(function () {
+                var Item = [];
+                $('tbody tr').each(function () {
+                    let itemId = $(this).attr("data-id");
+                    let checkeditem = $(this).find(".checkclass").is(":checked");
+
+
+                    if (checkeditem) {
+                        Item.push({
+                            ItemId: itemId,
+
+                        });
+                    }
+
+                });
+                if (Item.length == 0) {
+                    toastr.error("Please select at least one item to delete.");
+                    return;
+                }
+                else {
+                    $("#deleteItemModal").modal("show");
+
+                }
+            });
+
             $("#modifierGroupDropdown").change(function () {
                 var groupId = $(this).val();
 
@@ -779,6 +779,26 @@
                 var groupId = parentGroup.find("input[name*='ModifierGroupId']").val();
                 var minSelection = parentGroup.find(".min-input").val();
                 var maxSelection = parentGroup.find(".max-input").val();
+                var capacity = parseInt(parentGroup.find(".capacity-input").val()) || 0;
+
+                if (minSelection < 1) {
+                    toastr.error("Minimum selection must be at least 1.");
+                    $('.saveitembtn').prop('disabled', true);
+                    return;
+                }
+
+                if (maxSelection > capacity) {
+                    toastr.error("Maximum selection cannot exceed the group's capacity.");
+                    $('.saveitembtn').prop('disabled', true);
+                    return;
+                }
+
+                if (minSelection > maxSelection) {
+                    toastr.error("Minimum selection cannot be greater than maximum selection.");
+                    $('.saveitembtn').prop('disabled', true);
+                    return;
+                }
+
 
                 // Update the selectedModifierGroups array
                 selectedModifierGroups.forEach((group) => {
@@ -787,6 +807,8 @@
                         group.maxSelection = maxSelection;
                     }
                 });
+                $('.saveitembtn').prop('disabled', false);
+
 
                 console.log("Updated Selected Modifier Groups:", selectedModifierGroups);
             });
@@ -913,15 +935,42 @@
                 contentType: "application/json",
                 data: JSON.stringify(Item),
                 success: function () {
-                    @* window.location.href = @Url.Action("MenuItem", "Menu"); *@
-                        console.log('Save');
-
+                    toastr.success("Item Deleted Successfully!");
+                    $("#deleteItemModal").modal("hide");
+                    loadMenuItems(1);
                 },
                 error: function (xhr, status, error) {
                     console.error('error Feching items:', error);
                 }
             });
         }
+
+        function loadMenuItems(page = 1) {
+            var search = $("#searchInput").val();
+            var sortOrder = $("#sortOrder").val();
+            var pageSize = $("#pageSizeDropdown").val();
+
+            console.log("Category:", selectedCategoryId, "Page:", page, "PageSize:", pageSize);
+
+            $.ajax({
+                url: '/Menu/MenuItem',  // Ensure this route matches your controller
+                type: 'GET',
+                data: {
+                    categoryId: selectedCategoryId,
+                    search: search,
+                    sortOrder: sortOrder,
+                    page: page,
+                    pageSize: pageSize
+                },
+                success: function (data) {
+                    $("#menuItemsContainer").html(data);  // Update the menu items container
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error fetching items:', error);
+                }
+            });
+        }
+
 
         function deleteCategory(categoryId) {
             $.ajax({

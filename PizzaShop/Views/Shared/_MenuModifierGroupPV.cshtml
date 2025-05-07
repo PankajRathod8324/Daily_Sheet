@@ -38,9 +38,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="webybtn">
+                    <div class="webybtn addmodifiergroupopenmodalbtn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                            class="bi bi-plus-square" data-bs-toggle="modal" data-bs-target="#addModifierGroupModal"
+                            class="bi bi-plus-square" 
                             viewBox="0 0 16 16">
                             <path
                                 d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
@@ -57,7 +57,7 @@
                             @foreach (var modifierGroups in Model.menuModifierGroups)
                             {
                                 var modalId = "deleteModal" + modifierGroups.ModifierGroupId;
-                                <div class="d-flex justify-content-between align-items-center hoverDiv"
+                                <div class="d-flex justify-content-between align-items-center hoverModifierDiv"
                                     data-id="@modifierGroups.ModifierGroupId">
                                     <div class="">
                                         <p class="fs-5" data-id="@modifierGroups.ModifierGroupId">
@@ -124,9 +124,9 @@
                 <div class="col mb-3 ms-3">
                     <h3 class=" fs-4 webybtn">Modifier Group </h3>
                 </div>
-                <div class="col text-end webybtn">
+                <div class="col text-end webybtn addmodifiergroupopenmodalbtn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                        class="bi bi-plus-square mt-2" data-bs-toggle="modal" data-bs-target="#addModifierGroupModal"
+                        class="bi bi-plus-square mt-2" 
                         viewBox="0 0 16 16">
                         <path
                             d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
@@ -139,7 +139,7 @@
             <div class="overflow-x-hidden  mt-3" style="max-width: 1000px; max-height: 400px;scrollbar-width: none;">
                 @foreach (var modifierGroups in Model.menuModifierGroups)
                 {
-                    <div class="d-flex justify-content-between align-items-center hoverDiv"  data-modid="@modifierGroups.ModifierGroupId">
+                    <div class="d-flex justify-content-between align-items-center hoverModifierDiv"  data-modid="@modifierGroups.ModifierGroupId">
                         <div class="">
                             <p class="fs-5" data-modid="@modifierGroups.ModifierGroupId">
                                 <i class="modifier-link fa-solid fa-grip-vertical me-2"
@@ -252,8 +252,7 @@
                         <input type="hidden" id="selectedModifierIds" asp-for="ModifierIds" />
 
 
-                        <button type="button" class="btn btn-outline-primary mt-2" onclick="GetModifier()"
-                            data-bs-toggle="modal" data-bs-target="#allModifiersModal">
+                        <button type="button" class="btn btn-outline-primary mt-2 addexistingmodifiermodalopenbtn" onclick="GetModifier()"
                             <i class="fas fa-plus"></i> Add Existing Modifier
                         </button>
                     </div>
@@ -289,8 +288,7 @@
                 
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#addModifierGroupModal" id="addSelectedModifiers"
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="addSelectedModifiers"
                         onclick="AddModifierToModal(@Model.ModifierId)">Add Selected</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
@@ -458,7 +456,8 @@
 
 
     <script>
-        let selectedModifierGroupId; 
+        let selectedModifierGroupId = '@Model.menuModifierGroups.FirstOrDefault().ModifierGroupId';
+
 
         function setDeleteModifierGroupId(modifierGroupId) {
             selectedModifierGroupId = modifierGroupId; 
@@ -501,6 +500,19 @@
                 });
             });
 
+             $.ajax({
+                url: '/Menu/MenuModifier',
+                type: 'GET',
+                data: { groupId: selectedModifierGroupId },
+                success: function (data) {
+                    $("#Modifier").html(data);
+                    $('.hoverModifierDiv[data-modid="' + selectedModifierGroupId + '"]').addClass("active");
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error fetching items:', error);
+                }
+            });
+
             $.ajax({
                 url: '@Url.Action("MenuModifier", "Menu")',
                 type: 'GET',
@@ -511,7 +523,15 @@
                     console.error('error Feching items:', error);
                 }
             });
-               $('.editbtn').click(function () {
+            $('.addmodifiergroupopenmodalbtn').click(function () {
+                console.log("Add Modifier Group Button Pressed");
+                $('#addModifierGroupModal').modal('show');
+            });
+            $('.addexistingmodifiermodalopenbtn').click(function () {
+                console.log("Add Existing Modifier Button Pressed");
+                $('#allModifiersModal').modal('show');
+            });
+            $('.editbtn').click(function () {
                 let groupId = $(this).data('modid'); // Get Modifier Group ID
                 console.log("Edit Button Pressed", groupId);
 
@@ -700,9 +720,9 @@ function updatePreviousModal() {
 
 
 
-        $(".hoverDiv").click(function () {
+        $(".hoverModifierDiv").click(function () {
            
-            $(".hoverDiv").removeClass("active");
+            $(".hoverModifierDiv").removeClass("active");
             $(this).addClass("active");
                 
             var modid = $(this).data("modid");

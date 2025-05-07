@@ -238,7 +238,7 @@ a:hover {
 {
     background-color:  rgb(245,245,245) !important;
 }
-.hoverDiv:hover , .hoverCategoryDiv:hover {
+.hoverDiv:hover , .hoverCategoryDiv:hover, .hoverModifierDiv:hover {
     /* transition: box-shadow 0.3s ease; */
     color: rgba(0, 102, 167, 1) !important;
     font-weight: bold;
@@ -246,7 +246,7 @@ a:hover {
 }
 
 
-.hoverDiv:hover .hoverIcon a , .hoverCategoryDiv:hover .hoverIcon a{
+.hoverDiv:hover .hoverIcon a , .hoverCategoryDiv:hover .hoverIcon a, .hoverModifierDiv:hover .hoverIcon a {
     visibility: visible;
     color: rgba(0, 102, 167, 1) !important;
 }
@@ -309,7 +309,7 @@ a:hover {
 }
 
 /* Category List Styling */
-.hoverDiv, .hoverCategoryDiv {
+.hoverDiv, .hoverCategoryDiv, .hoverModifierDiv {
     padding: 10px 15px;
     border-radius: 8px;
     transition: all 0.3s ease-in-out;
@@ -344,7 +344,11 @@ i {
 .hoverCategoryDiv.active p,  
 .hoverCategoryDiv.active .fa-grip-vertical,
 .hoverCategoryDiv.active .edit-btn i,
-.hoverCategoryDiv.active .fa-trash-can {
+.hoverCategoryDiv.active .fa-trash-can,
+.hoverModifierDiv.active p,
+.hoverModifierDiv.active .fa-grip-vertical,
+.hoverModifierDiv.active .edit-btn i,
+.hoverModifierDiv.active .fa-trash-can {
     color: rgba(0, 102, 167, 1) !important;
     /* Make text and icons blue */
     font-weight: bold;

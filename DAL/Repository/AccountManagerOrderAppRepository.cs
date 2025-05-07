@@ -25,40 +25,134 @@ public class AccountManagerOrderAppRepository : IAccountManagerOrderAppRepositor
 
     public List<OrderSectionVM> GetOrderSection()
     {
-        var sectionData = _context.Sections.Select(section => new OrderSectionVM
+        // Step 1: Get all active tables with possible active orders
+        var activeTableOrders = _context.Tables
+            .Include(t => t.Status)
+            .Include(t => t.CustomerTables)
+            .ThenInclude(ct => ct.Customer)
+            .ToList();
+
+        // Step 2: Flatten and map table + active order info
+        var tableInfoList = activeTableOrders.Select(table =>
         {
-            SectionId = section.SectionId,
-            SectionName = section.SectionName,
-            Available = section.Tables.Count(t => t.Status.StatusName == "Available"),
-            Assigned = section.Tables.Count(t => t.Status.StatusName == "Assigned"),
-            Running = section.Tables.Count(t => t.Status.StatusName == "Running"),
-            Reserved = section.Tables.Count(t => t.Status.StatusName == "Reserved"),
-            Table = section.Tables.Select(table => new OrderTableVM
+            var activeCT = table.CustomerTables.FirstOrDefault(ct => (bool)ct.IsActive);
+            var activeOrder = activeCT != null
+                ? _context.Orders.FirstOrDefault(order =>
+                    order.CustomerId == activeCT.CustomerId &&
+                    order.OrderStatusId == 6)
+                : null;
+
+            return new
             {
-                SectionId = (int)table.SectionId,
-                TableId = table.TableId,
-                TableName = table.TableName,
-                Status = table.Status.StatusName,
-                Capacity = table.Capacity,
-                OccuipiedTime = table.CustomerTables.Any(orderct => orderct.IsActive == true) ? (DateTime.UtcNow - table.CustomerTables.First(orderct => orderct.IsActive == true).CreatedAt) : TimeSpan.Zero,
-                // NoOfPerson = _context.CustomerTables.Where(t => t.TableId)
-                OrderTable = table.CustomerTables.Where(ordert => ordert.IsActive == true).Select(ordertable => new OrderTableVM
-                {
-                    OrderId = _context.Orders.Where(order => order.CustomerId == ordertable.CustomerId && order.OrderStatusId == 6 && ordertable.IsActive == true).Select(order => order.OrderId).FirstOrDefault(),
-                    Order = _context.Orders.Where(order => order.CustomerId == ordertable.CustomerId && order.OrderStatusId == 6 && ordertable.IsActive == true).Select(order => new OrderVM
-                    {
-                        OrderId = order.OrderId,
-                        OrderAmount = order.TotalAmount,
-                        CustomerId = order.CustomerId,
-                        OccupiedTime = DateTime.UtcNow - order.CreatedAt,
-                    }).ToList(),
-                }).ToList(),
-                CustomerTables = table.CustomerTables.Where(ordert => ordert.IsActive == true).Select(customertable => new CustomerTable
-                {
-                    CustomerId = customertable.CustomerId,
-                }).ToList(),
-            }).ToList(),
+                Table = table,
+                Order = activeOrder
+            };
         }).ToList();
+
+        // Step 3: Group by OrderId (nulls separated)
+        var groupedByOrder = tableInfoList
+      .GroupBy(x => x.Order?.OrderId)
+      .SelectMany(group =>
+      {
+          if (group.Key != null && group.Count() > 1)
+          {
+              // Multiple tables with same OrderId → merge them
+              var first = group.First();
+              return new List<OrderTableVM>
+              {
+                new OrderTableVM
+                {
+                    SectionId = first.Table.SectionId ?? 0,
+                    TableId = 0,
+                    TableName = string.Join(", ", group.Select(x => x.Table.TableName).Distinct()),
+                    Status = string.Join(", ", group.Select(x => x.Table.Status.StatusName).Distinct()),
+                    Capacity = group.Sum(x => x.Table.Capacity),
+                    OccuipiedTime = first.Order != null ? (DateTime.UtcNow - first.Order.CreatedAt) : TimeSpan.Zero,
+                    OrderTable = new List<OrderTableVM>
+                    {
+                        new OrderTableVM
+                        {
+                            OrderId = first.Order.OrderId,
+                            Order = new List<OrderVM>
+                            {
+                                new OrderVM
+                                {
+                                    OrderId = first.Order.OrderId,
+                                    OrderAmount = first.Order.TotalAmount,
+                                    CustomerId = first.Order.CustomerId,
+                                    OccupiedTime = DateTime.UtcNow - first.Order.CreatedAt
+                                }
+                            }
+                        }
+                    },
+                    CustomerTables = group
+                        .SelectMany(x => x.Table.CustomerTables.Where(ct => (bool)ct.IsActive))
+                        .Select(ct => new CustomerTable
+                        {
+                            CustomerId = ct.CustomerId
+                        })
+                        .Distinct()
+                        .ToList()
+                }
+              };
+          }
+          else
+          {
+              // Each table shown separately (either no order or unique order)
+              return group.Select(x => new OrderTableVM
+              {
+                  SectionId = x.Table.SectionId ?? 0,
+                  TableId = x.Table.TableId,
+                  TableName = x.Table.TableName,
+                  Status = x.Table.Status.StatusName,
+                  Capacity = x.Table.Capacity,
+                  OccuipiedTime = x.Order != null ? (DateTime.UtcNow - x.Order.CreatedAt) : TimeSpan.Zero,
+                  OrderTable = x.Order != null ? new List<OrderTableVM>
+                  {
+                    new OrderTableVM
+                    {
+                        OrderId = x.Order.OrderId,
+                        Order = new List<OrderVM>
+                        {
+                            new OrderVM
+                            {
+                                OrderId = x.Order.OrderId,
+                                OrderAmount = x.Order.TotalAmount,
+                                CustomerId = x.Order.CustomerId,
+                                OccupiedTime = DateTime.UtcNow - x.Order.CreatedAt
+                            }
+                        }
+                    }
+                  } : new List<OrderTableVM>(),
+                  CustomerTables = x.Table.CustomerTables
+                      .Where(ct => (bool)ct.IsActive)
+                      .Select(ct => new CustomerTable
+                      {
+                          CustomerId = ct.CustomerId
+                      })
+                      .ToList()
+              });
+          }
+      })
+      .ToList();
+
+        // Step 4: Return section data with associated (filtered/merged) tables
+        var sectionData = _context.Sections
+            .AsEnumerable()
+            .Select(section => new OrderSectionVM
+            {
+                SectionId = section.SectionId,
+                SectionName = section.SectionName,
+                Available = section.Tables.Count(t => t.Status.StatusName == "Available"),
+                Assigned = section.Tables.Count(t => t.Status.StatusName == "Assigned"),
+                Running = section.Tables.Count(t => t.Status.StatusName == "Running"),
+                Reserved = section.Tables.Count(t => t.Status.StatusName == "Reserved"),
+                Table = groupedByOrder
+                    .Where(t => t.SectionId == section.SectionId)
+                    .ToList()
+            }).ToList();
+
+
         return sectionData;
     }
 
@@ -180,7 +274,7 @@ public class AccountManagerOrderAppRepository : IAccountManagerOrderAppRepositor
             Phone = waitingData.Phone,
             IsDeleted = (bool)waitingData.IsDeleted
         };
-            return waitingvm;
+        return waitingvm;
     }
 
     public WaitingListVM GetWaitingDataByEmail(string email)
