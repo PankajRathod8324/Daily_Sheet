@@ -18,7 +18,7 @@ public interface IMenuService
 
   int GetTotalModifierCount();
 
-  void DeleteCategory(MenuCategory category);
+  void DeleteCategory(int categoryId);
   List<MenuItem> GetItemsByCategoryId(int categoryId);
 
   List<MenuCategoryVM> GetItemByCategoryId(int categoryId, string search);

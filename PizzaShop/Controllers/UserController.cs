@@ -119,13 +119,16 @@ public class UserController : Controller
         var user = _userService.GetUserById(id);
         var email = Request.Cookies["email"];
         var loginuser = _userService.GetUserByEmail(email);
-
-        if (loginuser.RoleId != 2)
+        if (loginuser.RoleId == 3 || loginuser.RoleId == 1)
         {
-            TempData["Message"] = "You can't updated Super Admin";
-            TempData["MessageType"] = "warning";
-            return RedirectToAction("Userpage", "Home");
+            if (user.RoleId == 2)
+            {
+                TempData["Message"] = "You can't updated Super Admin";
+                TempData["MessageType"] = "warning";
+                return RedirectToAction("Userpage", "Home");
+            }
         }
+
         if (user == null)
         {
             return NotFound();
@@ -138,11 +141,16 @@ public class UserController : Controller
     [ValidateAntiForgeryToken]
     public IActionResult Edituser(AddUserVM model, IFormFile ProfileImage)
     {
-        if (model.RoleId != 2)
+        var email = Request.Cookies["email"];
+        var loginuser = _userService.GetUserByEmail(email);
+        if (loginuser.RoleId == 3 || loginuser.RoleId == 1)
         {
-            TempData["Message"] = "You can't updated Super Admin";
-            TempData["MessageType"] = "warning";
-            return RedirectToAction("Userpage", "Home");
+            if (model.RoleId == 2)
+            {
+                TempData["Message"] = "You can't updated Super Admin";
+                TempData["MessageType"] = "warning";
+                return RedirectToAction("Userpage", "Home");
+            }
         }
         if (!ModelState.IsValid)
         {

@@ -82,12 +82,12 @@ public class MenuRepository : IMenuRepository
         Save();
     }
 
-    public void DeleteCategory(MenuCategory category)
+    public void DeleteCategory(int categoryId)
     {
-        Console.WriteLine(category);
-        if (category != null)
+        var existingCategory = _context.MenuCategories.FirstOrDefault(u => u.CategoryId == categoryId);
+        if (existingCategory != null)
         {
-            category.IsDeleted = true;
+            existingCategory.IsDeleted = true;
             Save();
         }
     }
@@ -100,10 +100,6 @@ public class MenuRepository : IMenuRepository
 
     public List<MenuItem> GetItemsByCategoryId(int categoryId)
     {
-        if (categoryId == null || categoryId == 0)
-        {
-            categoryId = 11;
-        }
         return _context.MenuItems.Where(i => i.CategoryId == categoryId && (bool)!i.IsDeleted).ToList();
     }
 

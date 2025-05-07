@@ -59,9 +59,9 @@ public class MenuService : IMenuService
         _menuRepository.UpdateCategory(category);
     }
 
-    public void DeleteCategory(MenuCategory category)
+    public void DeleteCategory(int categoryId)
     {
-        _menuRepository.DeleteCategory(category);
+        _menuRepository.DeleteCategory(categoryId);
     }
 
     public List<MenuItem> GetItemsByCategoryId(int categoryId)

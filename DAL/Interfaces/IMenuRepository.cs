@@ -20,7 +20,7 @@ public interface IMenuRepository
 
   void UpdateCategory(MenuCategoryVM category);
 
-  void DeleteCategory(MenuCategory category);
+  void DeleteCategory(int categoryId);
   List<MenuItem> GetItemsByCategoryId(int categoryId);
   void AddMenuItem(MenuItem menuItem);
 

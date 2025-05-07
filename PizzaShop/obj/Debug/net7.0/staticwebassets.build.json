@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "SouHX50yCpSAs1Yxx6egDf0y24HxGa9jle0v4evvntA=",
+  "Hash": "9VdaiEtI8clz5cZoBbSwF+So7HC/gPZvH3+ROdp1uNc=",
   "Source": "PizzaShop",
   "BasePath": "_content/PizzaShop",
   "Mode": "Default",
@@ -682,8 +682,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "ggkvcu2t99",
-      "Integrity": "sGL+7bzxNCXBgJI3izSElQEPAXlBtI/9a4+vBpwNoOc=",
+      "Fingerprint": "78uoaig4jc",
+      "Integrity": "B4Ee1h7I+bRjdgLHOeC/yixjXK2s/sMUX/1ofWuOl7U=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\media.css"
@@ -724,8 +724,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "lrmpdzqjxt",
-      "Integrity": "f8fgz9gOI0mR4pM32admEFEqlGLJGm8BPP6srGl7t0U=",
+      "Fingerprint": "59i22hmh1j",
+      "Integrity": "F3FbVjkNDzjWUdv3bai4w0lr4e9+STF+oAUqVUxC56I=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\style.css"
@@ -5589,6 +5589,51 @@
       ]
     },
     {
+      "Route": "css/media.78uoaig4jc.css",
+      "AssetFile": "D:\\PizzaShop_N_Tier-main\\PizzaShop_N_Tier-main\\PizzaShop\\wwwroot\\css\\media.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1434"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"B4Ee1h7I+bRjdgLHOeC/yixjXK2s/sMUX/1ofWuOl7U=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 07 May 2025 17:55:41 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "78uoaig4jc"
+        },
+        {
+          "Name": "label",
+          "Value": "css/media.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-B4Ee1h7I+bRjdgLHOeC/yixjXK2s/sMUX/1ofWuOl7U="
+        }
+      ]
+    },
+    {
       "Route": "css/media.css",
       "AssetFile": "D:\\PizzaShop_N_Tier-main\\PizzaShop_N_Tier-main\\PizzaShop\\wwwroot\\css\\media.css",
       "Selectors": [],
@@ -5599,7 +5644,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1461"
+          "Value": "1434"
         },
         {
           "Name": "Content-Type",
@@ -5607,11 +5652,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"sGL+7bzxNCXBgJI3izSElQEPAXlBtI/9a4+vBpwNoOc=\""
+          "Value": "\"B4Ee1h7I+bRjdgLHOeC/yixjXK2s/sMUX/1ofWuOl7U=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 06 May 2025 20:58:53 GMT"
+          "Value": "Wed, 07 May 2025 17:55:41 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5621,52 +5666,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-sGL+7bzxNCXBgJI3izSElQEPAXlBtI/9a4+vBpwNoOc="
-        }
-      ]
-    },
-    {
-      "Route": "css/media.ggkvcu2t99.css",
-      "AssetFile": "D:\\PizzaShop_N_Tier-main\\PizzaShop_N_Tier-main\\PizzaShop\\wwwroot\\css\\media.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1461"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"sGL+7bzxNCXBgJI3izSElQEPAXlBtI/9a4+vBpwNoOc=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 06 May 2025 20:58:53 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "ggkvcu2t99"
-        },
-        {
-          "Name": "label",
-          "Value": "css/media.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-sGL+7bzxNCXBgJI3izSElQEPAXlBtI/9a4+vBpwNoOc="
+          "Value": "sha256-B4Ee1h7I+bRjdgLHOeC/yixjXK2s/sMUX/1ofWuOl7U="
         }
       ]
     },
@@ -5693,7 +5693,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 06 May 2025 15:18:00 GMT"
+          "Value": "Wed, 07 May 2025 17:55:54 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5738,7 +5738,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 06 May 2025 15:18:00 GMT"
+          "Value": "Wed, 07 May 2025 17:55:54 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5753,6 +5753,51 @@
       ]
     },
     {
+      "Route": "css/style.59i22hmh1j.css",
+      "AssetFile": "D:\\PizzaShop_N_Tier-main\\PizzaShop_N_Tier-main\\PizzaShop\\wwwroot\\css\\style.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "7111"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"F3FbVjkNDzjWUdv3bai4w0lr4e9+STF+oAUqVUxC56I=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 07 May 2025 17:56:18 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "59i22hmh1j"
+        },
+        {
+          "Name": "label",
+          "Value": "css/style.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-F3FbVjkNDzjWUdv3bai4w0lr4e9+STF+oAUqVUxC56I="
+        }
+      ]
+    },
+    {
       "Route": "css/style.css",
       "AssetFile": "D:\\PizzaShop_N_Tier-main\\PizzaShop_N_Tier-main\\PizzaShop\\wwwroot\\css\\style.css",
       "Selectors": [],
@@ -5763,7 +5808,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "6875"
+          "Value": "7111"
         },
         {
           "Name": "Content-Type",
@@ -5771,11 +5816,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"f8fgz9gOI0mR4pM32admEFEqlGLJGm8BPP6srGl7t0U=\""
+          "Value": "\"F3FbVjkNDzjWUdv3bai4w0lr4e9+STF+oAUqVUxC56I=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 06 May 2025 17:59:49 GMT"
+          "Value": "Wed, 07 May 2025 17:56:18 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5785,52 +5830,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-f8fgz9gOI0mR4pM32admEFEqlGLJGm8BPP6srGl7t0U="
-        }
-      ]
-    },
-    {
-      "Route": "css/style.lrmpdzqjxt.css",
-      "AssetFile": "D:\\PizzaShop_N_Tier-main\\PizzaShop_N_Tier-main\\PizzaShop\\wwwroot\\css\\style.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "6875"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"f8fgz9gOI0mR4pM32admEFEqlGLJGm8BPP6srGl7t0U=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 06 May 2025 17:59:49 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "lrmpdzqjxt"
-        },
-        {
-          "Name": "label",
-          "Value": "css/style.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-f8fgz9gOI0mR4pM32admEFEqlGLJGm8BPP6srGl7t0U="
+          "Value": "sha256-F3FbVjkNDzjWUdv3bai4w0lr4e9+STF+oAUqVUxC56I="
         }
       ]
     },

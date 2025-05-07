@@ -27,65 +27,94 @@
 
 
     <div class="col-lg-6 col-md-6 col-sm-9 categoryTobevisible  bg-light p-3">
-
-        <div class="accordion" id="accordionPanelsStayOpenExample">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
-                        aria-controls="panelsStayOpen-collapseOne">
-                        <div class="row">
-                            <div class="col ">
-                                <h3 class=" fs-3">Modifiers Group </h3>
-                            </div>
-                            <div class="col text-end">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                                    class="bi bi-plus-square mt-2" data-bs-toggle="modal"
-                                    data-bs-target="#addModifierGroupModal" viewBox="0 0 16 16">
-                                    <path
-                                        d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
-                                    <path
-                                        d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
-                                </svg>
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header d-flex align-items-center justify-content-between" id="headingOne" style="text-decoration: none;">
+                    <div>
+                        <div class="btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                            aria-controls="collapseOne">
+                            <div class="">
+                                <h3 class=" fs-3 webybtn">Modifiers Group </h3>
                             </div>
                         </div>
-                    </button>
-                </h2>
-                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
-                    aria-labelledby="panelsStayOpen-headingOne">
-                    <div class="accordion-body">
+                    </div>
+                    <div class="webybtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                            class="bi bi-plus-square" data-bs-toggle="modal" data-bs-target="#addModifierGroupModal"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+                            <path
+                                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                        </svg>
+                    </div>
 
+                </div>
 
-                        <div class="overflow-y-scroll  mt-3" style="max-width: 1000px; max-height: 1000px;">
-
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="overflow-y-scroll  mt-3" style="max-width: 1000px; max-height: 600px;">
                             @foreach (var modifierGroups in Model.menuModifierGroups)
                             {
-                                <div class="row hoverDiv">
-                                    <div class="col">
-                                        <p class="fs-5"><i
-                                                class="fa-solid fa-grip-vertical me-2"></i>@modifierGroups.ModifierGroupName
+                                var modalId = "deleteModal" + modifierGroups.ModifierGroupId;
+                                <div class="d-flex justify-content-between align-items-center hoverDiv"
+                                    data-id="@modifierGroups.ModifierGroupId">
+                                    <div class="">
+                                        <p class="fs-5" data-id="@modifierGroups.ModifierGroupId">
+                                            <i class=" fa-solid fa-grip-vertical me-2"></i>@modifierGroups.ModifierGroupName
                                         </p>
+
+
                                     </div>
-                                    <div class="hoverIcon col text-end mt-2">
-                                        <a class="text-black"> <i class="fa-solid fa-marker" data-bs-toggle="modal"
+                                    <div class="hoverIcon  text-end mt-2">
+                                        <a class="text-black edit-btn" data-bs-toggle="modal"
                                                 data-bs-target="#editCategoryModal"
                                                 data-modid="@modifierGroups.ModifierGroupId"
                                                 data-modname="@modifierGroups.ModifierGroupName"
-                                                data-moddescription="@modifierGroups.ModifierGroupDecription"></i></a>
-                                        <a><i class="fa-regular fa-trash-can ms-4 text-black" data-bs-toggle="modal" data-bs-target="deleteModalModifierGroup1"
-                                                data-modid="@modifierGroups.ModifierGroupId"></i></a>
+                                                data-moddescription="@modifierGroups.ModifierGroupDecription"> <i class="fa-solid fa-marker "></i></a>
+                                        <a class="text-black" data-bs-toggle="modal" data-bs-target="#@modalId"><i
+                                                class="fa-regular fa-trash-can ms-4 "></i></a>
+                                        @* <i class="fa-regular fa-trash-can ms-4 text-black" data-bs-toggle="modal"
+                                data-bs-target="#@modalId"></i> *@
 
+                                        <div class="modal fade" id="@modalId" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Delete Confirmation
+                                                        </h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div
+                                                        class="modal-body d-flex flex-column align-items-center justify-content-center">
+                                                        <img class="img-fluid"
+                                                            src="~/assest/toppng.com-warning-icon-2400x2400.png" alt=""
+                                                            style="width: 50px;">
+                                                        <div class="fs-4">Are you sure you want to delete modifier group?</div>
+                                                    </div>
+                                                    <div
+                                                        class="modal-footer d-flex align-items-center justify-content-center">
+                                                        <form asp-controller="Menu" asp-action="DeleteCategory"
+                                                            method="post" asp-route-id="@modifierGroups.ModifierGroupId">
+                                                            <button type="submit" class="btn btn-primary">Yes</button>
+                                                        </form>
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">No</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            }
 
+                            }
 
                         </div>
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
     <div class="col-12 d-flex justify-content-start w-100 ps-0 pe-0">
@@ -110,14 +139,14 @@
             <div class="overflow-x-hidden  mt-3" style="max-width: 1000px; max-height: 400px;scrollbar-width: none;">
                 @foreach (var modifierGroups in Model.menuModifierGroups)
                 {
-                    <div class="row hoverDiv"  data-modid="@modifierGroups.ModifierGroupId">
-                        <div class="col">
+                    <div class="d-flex justify-content-between align-items-center hoverDiv"  data-modid="@modifierGroups.ModifierGroupId">
+                        <div class="">
                             <p class="fs-5" data-modid="@modifierGroups.ModifierGroupId">
                                 <i class="modifier-link fa-solid fa-grip-vertical me-2"
                                    ></i>@modifierGroups.ModifierGroupName
                             </p>
                         </div>
-                        <div class="hoverIcon col text-end mt-2">
+                        <div class="hoverIcon  text-end mt-2">
                             <a class="text-black edit-btn-mds editbtn" data-bs-toggle="modal"
                                 data-bs-target="#editModifierGroupModal" data-modid="@modifierGroups.ModifierGroupId"
                                 data-modname="@modifierGroups.ModifierGroupName"

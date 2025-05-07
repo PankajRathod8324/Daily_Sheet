@@ -123,7 +123,7 @@
                 <div id="item-card" style="height: 750px;  overflow-y: auto;scrollbar-width: none;">
 
                 </div>
-                <div class="ms-2 d-flex justify-content-end">
+                <div class="ms-2 d-flex justify-content-end d-xl-none">
                     <button class="btn webyborder" data-bs-toggle="modal" data-bs-target="#orderDetailsModal">
                         <i class="bi bi-cart-fill fs-3 webybtn"></i> <!-- Example icon for cart -->
                     </button>
@@ -132,8 +132,8 @@
             </div>
             <input type="hidden" id="customerid" value="@ViewBag.CustomerId" />
             <input type="hidden" id="orderid" value="@ViewBag.OrderId" />
-            <div class="OrderSectionTobeHidden col-xl-5 col-md-4 col-lg-4 bg-white mt-3 me-3 p-3">
-                <div class="orderdetail   d-none">
+            <div class="OrderSectionTobeHidden ">
+                <div class="orderdetail  mt-3 me-3 p-3 bg-white  d-none">
                     <form id="saveorderdetails">
                         <div class="d-flex justify-content-between">
                             <div class="d-flex gap-1 align-items-center">
@@ -999,6 +999,16 @@
                         console.error("Error fetching order details:", error);
                     }
                 });
+                $.ajax({
+                    url: '@Url.Action("GetMenuItemDetails", "AccountManagerOrderApp")',
+                    type: "POST",
+                    data: JSON.stringify(FinalArrayToBeSubmit),
+                    contentType: 'application/json',
+                    success: function (response) {
+                        $("#modifierdatamodal").modal('hide');
+                        $("#orderitemomdifiermodal").html(response);
+                    }
+                });
             });
 
 
@@ -1519,16 +1529,6 @@
                 }
                 FinalTaxSum += parseFloat(itemtax * FinalSubtotalSum / 100);
                
-            });
-             $.ajax({
-                url: '@Url.Action("GetMenuItemDetails", "AccountManagerOrderApp")',
-                type: "POST",
-                data: JSON.stringify(ItemDetailsArray),
-                contentType: 'application/json',
-                success: function (response) {
-                    $("#modifierdatamodal").modal('hide');
-                    $("#orderitemomdifiermodal").append(response);
-                }
             });
              }
                     console.log(itemratetax + "Item Rate Tax");

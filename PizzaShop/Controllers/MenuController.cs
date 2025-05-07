@@ -375,9 +375,7 @@ public class MenuController : Controller
     [HttpPost]
     public IActionResult DeleteCategory(int id)
     {
-        Console.WriteLine("tHIS IS iD: " + id);
-        var category = _menuService.GetCategoryById(id);
-        _menuService.DeleteCategory(category);
+        _menuService.DeleteCategory(id);
         TempData["Message"] = "Category deleted successfully!";
         TempData["MessageType"] = "success";
         return RedirectToAction("Menu", "Home");
